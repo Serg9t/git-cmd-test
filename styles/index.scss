@@ -1,4 +1,8 @@
+@use 'placeholders';
 @use 'importer' as s;
+@use 'sass:color';
+@use 'sass:string';
+@use 'sass:math';
 
 .container {
     max-width: 800px;
@@ -17,13 +21,53 @@
     }
 
     .cards__wrapper {
-        width: 100%;
-        height: 100%;
+        @extend %fullsize;
+        // width: 100%;
+        // height: 100%;
 
         // display: flex;
         // justify-content: center;
         // align-items: center;
         // flex-wrap: wrap;
         @include s.d-flex(center, center, wrap);
+    }
+}
+
+.block {
+    // position: relative;
+    // top: 10px;
+    // left: 10px;
+    @include s.position(relative, top, left);
+    width: s.div(500px, 200px);
+    height: 200px;
+    background-color: s.$main__color_3;
+
+    &:before {
+        display: block;
+        content: "#{s.sumPro(1, 2, 3, 4, 5)}";
+        color: s.$main__color_1;
+    }
+
+    &:after {
+        content: "#{s.sum(-11, 2, 3)}";
+        color: s.$main__color_5
+
+    }
+}
+
+.built-it-modules {
+    @extend %simpleBlock;
+
+    // background-color: #{color.invert(s.$main__color_4)};
+    // background-color: #{color.mix(s.$main__color_4, s.$main__color_6, 70%)};
+    background-color: #{color.adjust(s.$main__color_6, $red: 15, $green: 30, $blue: 70, $alpha: -0.7)};
+
+    &:before {
+        content: "#{math.$pi}";
+    }
+
+    &:after {
+        display: block;
+        content: "#{string.unique-id()}";
     }
 }
